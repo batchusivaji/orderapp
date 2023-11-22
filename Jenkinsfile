@@ -10,13 +10,13 @@ pipeline {
         }
         stage ('Build and push docker image') {
             steps {
-                sh "docker image build -t batchusivaji/demo:dev_${BUILD_ID} ."
-                sh "docker image push batchusivaji/demo:dev_${BUILD_ID}"
+                sh "docker image build -t batchusivaji/kubernetes:v1.${BUILD_ID} ."
+                sh "docker image push batchusivaji/kubernetes:v1.${BUILD_ID}"
             }
         }
         stage ('update k8s manifest') {
             steps {
-                sh "cd ~/orderops && yq eval -i '.spec.template.spec.containers[0].image= \"batchusivaji/demo:dev_${BUILD_ID}\" ' ~/orderops/manifests/orderdeploy.yaml"
+                sh "cd ~/orderops && yq eval -i '.spec.template.spec.containers[0].image= \"batchusivaji/kubernetes:v1.${BUILD_ID}\" ' ~/orderops/manifests/orderdeploy.yaml"
                 sh """
                   cd ~/orderops
                   git add ~/orderops/manifests/orderdeploy.yaml
