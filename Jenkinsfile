@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label "K8S"}
     triggers { pollSCM ('* * * * *') }
     stages {
         stage('checkout') {
