@@ -21,7 +21,7 @@ pipeline {
                   cd ~/orderops
                   git add ~/orderops/manifests/orderdeploy.yaml
                   git commit -m "added new change"
-                  git push origin main
+                  git push --force origin main
                 """
             }
         }
